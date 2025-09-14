@@ -17,8 +17,8 @@ python main.py
 ```
 
 ## Files
-- `setup.bat` - install packages + run app
-- `run.bat` - start app silently
+- `setup.bat` - install packages + run program
+- `run.bat` - runs the program
 
 ## Modes
 - JJ: jump, type full word (ONE, TWO...)
