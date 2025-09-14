@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import pyautogui
+import pydirectinput
 import pyperclip
 import threading
 import time
@@ -11,6 +12,9 @@ from enum import Enum
 
 pyautogui.PAUSE = 0
 pyautogui.FAILSAFE = True
+
+pydirectinput.PAUSE = 0.01
+pydirectinput.FAILSAFE = True
 
 class Mode(Enum):
 	JJ = "JJ"
@@ -153,8 +157,8 @@ class Main:
 		words = text.split(" ")
 		for i, word in enumerate(words):
 			if word:
-				first = tr_map.get(word[0], word[0].upper())
-				rest = "".join(tr_lower.get(c, c.lower()) for c in word[1:])
+				first = tr_map.get(word[0].lower(), word[0].upper())
+				rest = "".join(tr_lower.get(c.upper(), c.lower()) for c in word[1:])
 				words[i] = first + rest
 		return " ".join(words)
 	
@@ -232,10 +236,10 @@ class Main:
 		self.end_entry.bind("<KeyRelease>", self.validate_range)
 		self.end_entry.grid(row=0, column=3, padx=5)
 		
+		# start button
 		self.start_lbl = start_lbl
 		self.end_lbl = end_lbl
 		
-		# main button
 		self.toggle_btn = ctk.CTkButton(self.root, text=self.text[self.lang]["start"], 
 			command=self.toggle, width=200, height=40)
 		self.toggle_btn.pack(pady=20)
@@ -376,7 +380,7 @@ class Main:
 			if self.mode == Mode.JJ:
 				self.do_jj(word.upper())
 			elif self.mode == Mode.GJ:
-				formatted = self.tr_caps(word.upper()) + "." if self.lang == Lang.TR else word.capitalize() + "."
+				formatted = self.tr_caps(word.upper()) + "/" if self.lang == Lang.TR else word.capitalize() + "/"
 				self.do_gj(formatted)
 			else:
 				self.do_hj(word.upper())
@@ -410,41 +414,51 @@ class Main:
 		
 		if use_clipboard:
 			pyperclip.copy(text)
-			time.sleep(0.01)
+			time.sleep(0.05)
 			if self.running:
-				pyautogui.hotkey('ctrl', 'v')
+				pyautogui.keyDown('ctrl')
+				time.sleep(0.02)
+				pyautogui.press('v')
+				time.sleep(0.02)
+				pyautogui.keyUp('ctrl')
+				time.sleep(0.05)
 		else:
 			try:
-				pyautogui.typewrite(text, interval=0)
+				pyautogui.typewrite(text, interval=0.01)
 			except:
 				pyperclip.copy(text)
-				time.sleep(0.01)
+				time.sleep(0.05)
 				if self.running:
-					pyautogui.hotkey('ctrl', 'v')
+					pyautogui.keyDown('ctrl')
+					time.sleep(0.02)
+					pyautogui.press('v')
+					time.sleep(0.02)
+					pyautogui.keyUp('ctrl')
+					time.sleep(0.05)
 	
 	def do_jj(self, word):
 		if not self.running: return
-		pyautogui.press('space')
+		pydirectinput.press('space')
 		time.sleep(0.05)
 		if not self.running: return
-		pyautogui.press('/')
+		pydirectinput.press('/')
 		time.sleep(0.05)
 		if not self.running: return
 		self.type_text(word)
 		if not self.running: return
-		pyautogui.press('enter')
+		pydirectinput.press('enter')
 	
 	def do_gj(self, word):
 		if not self.running: return
-		pyautogui.press('space')
+		pydirectinput.press('space')
 		time.sleep(0.05)
 		if not self.running: return
-		pyautogui.press('/')
+		pydirectinput.press('/')
 		time.sleep(0.05)
 		if not self.running: return
 		self.type_text(word)
 		if not self.running: return
-		pyautogui.press('enter')
+		pydirectinput.press('enter')
 	
 	def do_hj(self, word):
 		if not self.running: return
@@ -453,14 +467,14 @@ class Main:
 		for i, letter in enumerate(letters):
 			if not self.running: return
 			
-			pyautogui.press('space')
+			pydirectinput.press('space')
 			time.sleep(0.05)
-			pyautogui.press('/')
+			pydirectinput.press('/')
 			time.sleep(0.05)
 			if not self.running: return
 			
 			self.type_text(letter)
-			pyautogui.press('enter')
+			pydirectinput.press('enter')
 			
 			if i < len(letters) - 1:
 				if not self.running: return
@@ -472,14 +486,14 @@ class Main:
 		delay = random.uniform(0.5, self.delay) if self.delay > 0.5 else self.delay
 		time.sleep(delay)
 		
-		pyautogui.press('space')
+		pydirectinput.press('space')
 		time.sleep(0.05)
-		pyautogui.press('/')
+		pydirectinput.press('/')
 		time.sleep(0.05)
 		if not self.running: return
 		
 		self.type_text(word)
-		pyautogui.press('enter')
+		pydirectinput.press('enter')
 	
 	def run(self):
 		try:
