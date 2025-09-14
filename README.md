@@ -7,7 +7,7 @@
 <sub>i hate my life</sub>
 
 ## Setup
-First time: run `setup.bat` (installs packages and starts app)
+First time: run `setup.bat` (installs packages and runs the program)
 After that: run `run.bat`
 
 Or manually:
@@ -17,12 +17,12 @@ python main.py
 ```
 
 ## Files
-- `setup.bat` - install packages + run app
-- `run.bat` - start app silently
+- `setup.bat` - install packages + run program
+- `run.bat` - runs the program
 
 ## Modes
 - JJ: jump, type full word (ONE, TWO...)
-- GJ: same but with period (One., Two....)  
+- GJ: same but with grammar (One., Two....)  
 - HJ: jump for each letter (O, N, E, then ONE)
 
 ## Features
@@ -30,7 +30,6 @@ python main.py
 - Custom number ranges
 - Cooldown slider (0.1-5s)
 - ESC to stop
-- Auto icon detection
 
 ## Usage
 1. Pick mode (JJ/GJ/HJ)
