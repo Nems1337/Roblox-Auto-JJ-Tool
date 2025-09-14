@@ -172,6 +172,13 @@ class Main:
 		self.hj_btn = ctk.CTkButton(mode_frame, text="HJ", width=80, command=lambda: self.set_mode(Mode.HJ))
 		self.hj_btn.grid(row=0, column=2, padx=5)
 		
+		# always on top
+		options_frame = ctk.CTkFrame(self.root)
+		options_frame.pack(pady=10)
+		
+		self.always_on_top_checkbox = ctk.CTkCheckBox(options_frame, text=self.text[self.lang]["always_on_top"], command=self.toggle_always_on_top)
+		self.always_on_top_checkbox.pack(padx=20, pady=10)
+		
 		# language
 		lang_frame = ctk.CTkFrame(self.root)
 		lang_frame.pack(pady=10)
@@ -179,15 +186,9 @@ class Main:
 		self.lang_lbl = ctk.CTkLabel(lang_frame, text=self.text[self.lang]["language"])
 		self.lang_lbl.grid(row=0, column=0, padx=10)
 		
-		self.lang_combo = ctk.CTkComboBox(lang_frame, values=["English (en)", "Türkçe (tr)"], 
-			command=self.change_lang, width=150, state="readonly")
+		self.lang_combo = ctk.CTkComboBox(lang_frame, values=["English (en)", "Türkçe (tr)"], command=self.change_lang, width=150, state="readonly")
 		self.lang_combo.set("English (en)")
 		self.lang_combo.grid(row=0, column=1)
-		
-		# always on top
-		self.always_on_top_checkbox = ctk.CTkCheckBox(lang_frame, text=self.text[self.lang]["always_on_top"],
-			command=self.toggle_always_on_top)
-		self.always_on_top_checkbox.grid(row=1, column=0, columnspan=2, pady=(10, 0))
 		
 		# delay
 		delay_frame = ctk.CTkFrame(self.root)
