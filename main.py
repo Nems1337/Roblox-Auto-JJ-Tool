@@ -380,7 +380,7 @@ class Main:
 			if self.mode == Mode.JJ:
 				self.do_jj(word.upper())
 			elif self.mode == Mode.GJ:
-				formatted = self.tr_caps(word.upper()) + "/" if self.lang == Lang.TR else word.capitalize() + "/"
+				formatted = self.tr_caps(word.upper()) + "." if self.lang == Lang.TR else word.capitalize() + "."
 				self.do_gj(formatted)
 			else:
 				self.do_hj(word.upper())
