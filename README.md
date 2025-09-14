@@ -22,7 +22,7 @@ python main.py
 
 ## Modes
 - JJ: jump, type full word (ONE, TWO...)
-- GJ: same but with period (One., Two....)  
+- GJ: same but with grammar (One., Two....)  
 - HJ: jump for each letter (O, N, E, then ONE)
 
 ## Features
