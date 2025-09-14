@@ -25,7 +25,7 @@ class Main:
 	def __init__(self):
 		self.root = ctk.CTk()
 		self.root.title("The time that I reincarnated as a JJ Tool to Rank up in a Lego Game")
-		self.root.geometry("450x400")
+		self.root.geometry("450x420")
 		self.load_icon()
 		
 		self.running = False
@@ -36,6 +36,7 @@ class Main:
 		self.countdown = 3
 		self.start_num = 1
 		self.end_num = 100
+		self.always_on_top = False
 		self.hotkey_listener = None
 		
 		self.text = {
@@ -43,12 +44,14 @@ class Main:
 				"cooldown":"Cooldown (s)", "language":"Language", "warning":"Warning: May violate ToS!", 
 				"stopped":"Stopped", "countdown":"Countdown (s)", "starting_in":"Starting in", 
 				"esc_stop":"Press ESC to stop", "start_num":"Start Number", "end_num":"End Number", 
-				"range_error":"Start must be < End", "completed":"Completed", "range":"Range"},
+				"range_error":"Start must be < End", "completed":"Completed", "range":"Range",
+				"always_on_top":"Always On Top"},
 			Lang.TR: {"start":"Başlat", "stop":"Durdur", "counting":"Sayım", "mode":"Mod", 
 				"cooldown":"Bekleme (sn)", "language":"Dil", "warning":"Uyarı: ToS ihlali edebilir!", 
 				"stopped":"Durduruldu", "countdown":"Geri sayım (sn)", "starting_in":"Başlangıç", 
 				"esc_stop":"Durdurmak için ESC", "start_num":"Başlangıç", "end_num":"Bitiş", 
-				"range_error":"Başlangıç < Bitiş olmalı", "completed":"Tamamlandı", "range":"Aralık"}
+				"range_error":"Başlangıç < Bitiş olmalı", "completed":"Tamamlandı", "range":"Aralık",
+				"always_on_top":"Her Zaman Üstte"}
 		} # u can add more if want to im just too lazy :P
 		
 		self.setup_ui()
@@ -181,6 +184,11 @@ class Main:
 		self.lang_combo.set("English (en)")
 		self.lang_combo.grid(row=0, column=1)
 		
+		# always on top
+		self.always_on_top_checkbox = ctk.CTkCheckBox(lang_frame, text=self.text[self.lang]["always_on_top"],
+			command=self.toggle_always_on_top)
+		self.always_on_top_checkbox.grid(row=1, column=0, columnspan=2, pady=(10, 0))
+		
 		# delay
 		delay_frame = ctk.CTkFrame(self.root)
 		delay_frame.pack(pady=10)
@@ -258,6 +266,7 @@ class Main:
 	
 	def refresh_ui(self):
 		self.lang_lbl.configure(text=self.text[self.lang]["language"])
+		self.always_on_top_checkbox.configure(text=self.text[self.lang]["always_on_top"])
 		self.delay_lbl.configure(text=f"{self.text[self.lang]['cooldown']}: {self.delay}")
 		self.countdown_lbl.configure(text=f"{self.text[self.lang]['countdown']}: {self.countdown}")
 		self.start_lbl.configure(text=self.text[self.lang]["start_num"])
@@ -273,6 +282,10 @@ class Main:
 	def update_countdown(self, value):
 		self.countdown = int(value)
 		self.countdown_lbl.configure(text=f"{self.text[self.lang]['countdown']}: {self.countdown}")
+	
+	def toggle_always_on_top(self):
+		self.always_on_top = self.always_on_top_checkbox.get()
+		self.root.wm_attributes("-topmost", self.always_on_top)
 	
 	def validate_range(self, event=None):
 		try:
