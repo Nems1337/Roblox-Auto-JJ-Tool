@@ -30,7 +30,6 @@ python main.py
 - Custom number ranges
 - Cooldown slider (0.1-5s)
 - ESC to stop
-- Auto icon detection
 
 ## Usage
 1. Pick mode (JJ/GJ/HJ)
