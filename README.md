@@ -7,7 +7,7 @@
 <sub>i hate my life</sub>
 
 ## Setup
-First time: run `setup.bat` (installs packages and starts app)
+First time: run `setup.bat` (installs packages and runs the program)
 After that: run `run.bat`
 
 Or manually:
